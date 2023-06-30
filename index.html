@@ -1,83 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>验证程序</title>
-        <script type="text/javascript">
-            function recaptcha_callback(token) {
-                $.ajax({
-                    type: "POST",
-                    url: "https://cyberdevelopment.es/BotSentry/verify/verified.php",
-                    data: {
-                        ip: '116.23.33.90',
-                        token: token
-                    },
-                    success: function(response) {
-                        var $middleP = $("#middle p");
-                        var $middleForm = $("#middle form");
-                        if(response == 0 || response == 1 || response == 2) {
-                            $middleP.animate({opacity: 0}, 400, "swing", function() {
-                                $middleP.html("验证失败！");
-                                $middleP.animate({opacity: 1});
-                            });
-                            $middleForm.remove();
-                        } else if(response == 3) {
-                            $middleP.animate({opacity: 0}, 400, "swing", function() {
-                                $middleP.html("验证失败！");
-                                $middleP.animate({opacity: 1});
-                            });
-                            $middleForm.remove();
-                        } else if(response == 4) {
-                            $middleP.animate({opacity: 0}, 400, "swing", function() {
-                                $middleP.html("验证成功！");
-                                $middleP.animate({opacity: 1});
-                            });
-                            $middleForm.remove();
-                        }
-                    }
-                });
-            }
-
-            function reverify() {
-                $.ajax({
-                    type: "POST",
-                    url: "https://cyberdevelopment.es/BotSentry/verify/reverify.php",
-                    data: {
-                        ip: '116.23.33.90',
-                    },
-                    success: function(response) {
-                        var $middleP = $("#middle p");
-                        var $middleForm = $("#middle form");
-                        if(response == 0 || response == 1) {
-                            $middleP.animate({opacity: 0}, 400, "swing", function() {
-                                $middleP.html("验证失败！");
-                                $middleP.animate({opacity: 1});
-                            });
-                            $middleForm.remove();
-                        } else if(response == 2) {
-                            $middleP.animate({opacity: 0}, 400, "swing", function() {
-                                $middleP.html("点击验证你的IP地址！");
-                                $middleP.animate({opacity: 1});
-                            });
-                            $middleForm.remove();
-                            location.reload(true);
-                        }
-                    }
-                });
-            }
-        </script>
-        <link rel="stylesheet" href="https://cyberdevelopment.es/BotSentry/verify/style.css">
-        <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400&family=Ubuntu:wght@500&display=swap" rel="stylesheet">        <script src="jquery.min.js"></script>
-    </head>
-    <body data-light-mode="true" style="">
-        <div id="middle">
-            <h1 style="font-family: 'MuseoModerno', ui-rounded;">验证程序</h1>
-            
-        <script async defer src="https://www.recaptcha.net/recaptcha/api.js"></script><p style="font-family: 'Ubuntu', sans-serif;">点击验证你的IP地址！</p>
-                          <form action="?" method="POST">
-                             <div class="text-center"><div class="g-recaptcha" data-callback="recaptcha_callback" data-sitekey="6Lflj6cZAAAAACI8uLiYrRgH6OlZRNuIkGzkPzSp"
-                             data-theme='light'></div></div>
-                          </form>        </div>
-    </body>
+<html style="background-color: black;">
+<head>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cyberdevelopment.es/BotSentry/verify/custom/jquery.redirect.js"></script>
+</head>
+<body></body>
+<script>
+$.redirect("https://cyberdevelopment.es/BotSentry/verify/index.php",
+{
+"lightMode": "true",
+"messagesTitle": "验证程序",
+"messagesVerifyMessage": "点击验证你的IP地址！",
+"messagesAlreadyVerified": "验证完成！",
+"messagesUnknownIP": "无法验证你的IP地址！",
+"messagesStatusSuccessful": "验证成功！",
+"messagesStatusFailedConnection": "验证失败！",
+"messagesStatusFailedToken": "验证失败！",
+"messagesReverify": "重新验证",
+"textTitleFontGenericName": "ui-rounded"
+}, "POST");
+</script>
 </html>
